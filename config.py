@@ -4,11 +4,10 @@ import os
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
-class Config:
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    CACHE_TYPE = 'SimpleCache'
-
-class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = DATABASE_URL
+# connecting uri for postgras database
+class DevelopmentConfig:
+  SQLALCHEMY_DATABASE_URI = DATABASE_URL
+  SQLALCHEMY_TRACK_MODIFICATIONS = False
+  CACHE_TYPE = 'SimpleCache'
   
   
