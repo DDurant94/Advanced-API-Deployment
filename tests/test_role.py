@@ -30,11 +30,11 @@ def role_save_url():
   data = {
     "role_name": "admin"
   }
-  response = requests.post('http://127.0.0.1:5000/roles/add-role',json=data)
+  response = requests.post('https://advanced-api-deployment.onrender.com/roles/add-role',json=data)
   return response
 
 def role_find_all_url():
-  find_all_role_url = requests.get('http://127.0.0.1:5000/roles/')
+  find_all_role_url = requests.get('https://advanced-api-deployment.onrender.com/roles/')
   return find_all_role_url
 
 class TestRoleEndpoints(unittest.TestCase):
@@ -108,7 +108,7 @@ class TestRoleEndpoints(unittest.TestCase):
 
     response = role_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/roles/add-role',json={"role_name": "admin"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/roles/add-role',json={"role_name": "admin"})
     self.assertEqual(response.status_code, 201)
     self.assertEqual(response.json(), {'message': 'Role added successfully'})
 
@@ -119,7 +119,7 @@ class TestRoleEndpoints(unittest.TestCase):
 
     response = role_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/roles/add-role',json={"role_name": "admin"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/roles/add-role',json={"role_name": "admin"})
     self.assertEqual(response.status_code, 400)
     self.assertEqual(response.json(), {'error': 'Bad Request'})
 
@@ -130,7 +130,7 @@ class TestRoleEndpoints(unittest.TestCase):
 
       response = role_find_all_url()
 
-      mock_get.assert_called_once_with('http://127.0.0.1:5000/roles/')
+      mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/roles/')
       self.assertEqual(response.status_code, 200)
       self.assertEqual(response.json(), [{'id': 1, 'name': 'Admin'}])
       
@@ -141,7 +141,7 @@ class TestRoleEndpoints(unittest.TestCase):
 
       response = role_find_all_url()
 
-      mock_get.assert_called_once_with('http://127.0.0.1:5000/roles/')
+      mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/roles/')
       self.assertEqual(response.status_code, 400)
       self.assertEqual(response.json(), {'error': 'Connection Error'})
   

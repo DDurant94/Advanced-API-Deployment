@@ -36,11 +36,11 @@ def save_order_url():
         "quantity": 2
       }
       ]}
-  response = requests.put('http://127.0.0.1:5000/orders/add-order',json=data)
+  response = requests.put('https://advanced-api-deployment.onrender.com/orders/add-order',json=data)
   return response
 
 def find_all_url():
-  response = requests.get('http://127.0.0.1:5000/orders/')
+  response = requests.get('https://advanced-api-deployment.onrender.com/orders/')
   return response
 
 class TestOrderEndpoints(unittest.TestCase):
@@ -130,7 +130,7 @@ class TestOrderEndpoints(unittest.TestCase):
     response = save_order_url()
 
     mock_put.assert_called_once_with(
-        'http://127.0.0.1:5000/orders/add-order',
+        'https://advanced-api-deployment.onrender.com/orders/add-order',
         json={
             "customer_id": 1,
             "date": "2024-01-01",
@@ -151,7 +151,7 @@ class TestOrderEndpoints(unittest.TestCase):
     response = save_order_url()
 
     mock_put.assert_called_once_with(
-        'http://127.0.0.1:5000/orders/add-order',
+        'https://advanced-api-deployment.onrender.com/orders/add-order',
         json={
             "customer_id": 1,
             "date": "2024-01-01",
@@ -171,7 +171,7 @@ class TestOrderEndpoints(unittest.TestCase):
 
     response = find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/orders/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/orders/')
     self.assertEqual(response.status_code, 200)
     self.assertEqual(response.json(), [{'order_id': 1, 'customer_id': 1, 'date': '2024-01-01'}])
 
@@ -182,7 +182,7 @@ class TestOrderEndpoints(unittest.TestCase):
 
     response = find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/orders/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/orders/')
     self.assertEqual(response.status_code, 500)
     self.assertEqual(response.json(), {'error': 'Internal Server Error'})
       

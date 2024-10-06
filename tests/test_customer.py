@@ -39,11 +39,11 @@ def customer_save_url():
     "email": "runedurant@gmail.com",
     "phone": "7852803958"
   }
-  response = requests.post('http://127.0.0.1:5000/customers/add-customer',json=data)
+  response = requests.post('https://advanced-api-deployment.onrender.com/customers/add-customer',json=data)
   return response
 
 def customer_find_all_url():
-  response = requests.get('http://127.0.0.1:5000/customers/')
+  response = requests.get('https://advanced-api-deployment.onrender.com/customers/')
   return response
 
 class TestCustomerEndpoints(unittest.TestCase):
@@ -93,7 +93,7 @@ class TestCustomerEndpoints(unittest.TestCase):
 
     response = customer_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/customers/add-customer',json={"name": "Daniel Durant", "email": "runedurant@gmail.com", "phone": "7852803958"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/customers/add-customer',json={"name": "Daniel Durant", "email": "runedurant@gmail.com", "phone": "7852803958"})
     self.assertEqual(response.status_code, 201)
     self.assertEqual(response.json(), {'message': 'Customer added successfully'})
 
@@ -105,7 +105,7 @@ class TestCustomerEndpoints(unittest.TestCase):
     response = customer_save_url()
 
     mock_post.assert_called_once_with(
-        'http://127.0.0.1:5000/customers/add-customer',
+        'https://advanced-api-deployment.onrender.com/customers/add-customer',
         json={"name": "Daniel Durant", "email": "runedurant@gmail.com", "phone": "7852803958"}
     )
     self.assertEqual(response.status_code, 400)
@@ -119,7 +119,7 @@ class TestCustomerEndpoints(unittest.TestCase):
 
     response = customer_find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/customers/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/customers/')
     self.assertEqual(response.status_code, 200)
     self.assertEqual(response.json(), [{'customer_id': 1, 'name': 'Daniel Durant', 'email': 'runedurant@gmail.com', 'phone': '7852803958'}])
 
@@ -130,7 +130,7 @@ class TestCustomerEndpoints(unittest.TestCase):
 
     response = customer_find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/customers/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/customers/')
     self.assertEqual(response.status_code, 500)
     self.assertEqual(response.json(), {'error': 'Internal Server Error'})
       

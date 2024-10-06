@@ -35,11 +35,11 @@ def user_save_url():
         "role": "admin"
     }
 
-    response = requests.post('http://127.0.0.1:5000/customer-accounts/add-account', json=data)
+    response = requests.post('https://advanced-api-deployment.onrender.com/customer-accounts/add-account', json=data)
     return response
 
 def user_find_all_url():
-  response = requests.get('http://127.0.0.1:5000/customer-accounts/')
+  response = requests.get('https://advanced-api-deployment.onrender.com/customer-accounts/')
   return response
 
 def user_login_url():
@@ -47,7 +47,7 @@ def user_login_url():
       "username": "DDurant94",
       "password": "password1"
   }
-  response = requests.post('http://127.0.0.1:5000/customer-accounts/login', json=data)
+  response = requests.post('https://advanced-api-deployment.onrender.com/customer-accounts/login', json=data)
   return response
 
 class TestLoginUser(unittest.TestCase):
@@ -123,7 +123,7 @@ class TestLoginUser(unittest.TestCase):
     
     response = user_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/customer-accounts/add-account',json={"username": "UsEr1", "password": "PassWord1", "role": "admin"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/customer-accounts/add-account',json={"username": "UsEr1", "password": "PassWord1", "role": "admin"})
     self.assertEqual(response.status_code, 201)
     self.assertEqual(response.json(), {'message': 'User added successfully'})
 
@@ -134,7 +134,7 @@ class TestLoginUser(unittest.TestCase):
 
     response = user_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/customer-accounts/add-account',json={"username": "UsEr1", "password": "PassWord1", "role": "admin"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/customer-accounts/add-account',json={"username": "UsEr1", "password": "PassWord1", "role": "admin"})
     self.assertEqual(response.status_code, 400)
     self.assertEqual(response.json(), {'error': 'Bad Request'})
 
@@ -145,7 +145,7 @@ class TestLoginUser(unittest.TestCase):
 
     response = user_find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/customer-accounts/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/customer-accounts/')
     self.assertEqual(response.status_code, 200)
     self.assertEqual(response.json(), [{'user_id': 1, 'username': 'UsEr1', 'role': 'admin'}])
 
@@ -156,7 +156,7 @@ class TestLoginUser(unittest.TestCase):
 
     response = user_find_all_url()
 
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/customer-accounts/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/customer-accounts/')
     self.assertEqual(response.status_code, 500)
     self.assertEqual(response.json(), {'error': 'Internal Server Error'})
 
@@ -168,7 +168,7 @@ class TestLoginUser(unittest.TestCase):
     response = user_login_url()
 
     mock_post.assert_called_once_with(
-        'http://127.0.0.1:5000/customer-accounts/login',
+        'https://advanced-api-deployment.onrender.com/customer-accounts/login',
         json={"username": "DDurant94", "password": "password1"}
     )
     self.assertEqual(response.status_code, 200)
@@ -182,7 +182,7 @@ class TestLoginUser(unittest.TestCase):
     response = user_login_url()
 
     mock_post.assert_called_once_with(
-        'http://127.0.0.1:5000/customer-accounts/login',
+        'https://advanced-api-deployment.onrender.com/customer-accounts/login',
         json={"username": "DDurant94", "password": "password1"}
     )
     self.assertEqual(response.status_code, 401)

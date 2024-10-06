@@ -46,11 +46,11 @@ def product_save_url():
     "quantity": 100,
     "date": "2024-01-01"
   }
-  save_url = requests.post('http://127.0.0.1:5000/products/add-product',json=data)
+  save_url = requests.post('https://advanced-api-deployment.onrender.com/products/add-product',json=data)
   return save_url
 
 def product_find_all_url():
-  find_all_url = requests.get('http://127.0.0.1:5000/products/')
+  find_all_url = requests.get('https://advanced-api-deployment.onrender.com/products/')
   return find_all_url
 
 
@@ -128,7 +128,7 @@ class TestProductEndpoints(unittest.TestCase):
 
     response = product_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/products/add-product',json={"product_id": 1, "quantity": 100, "date": "2024-01-01"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/products/add-product',json={"product_id": 1, "quantity": 100, "date": "2024-01-01"})
     self.assertEqual(response.status_code, 201)
     self.assertEqual(response.json(), {'message': 'Product added successfully'})
 
@@ -139,7 +139,7 @@ class TestProductEndpoints(unittest.TestCase):
 
     response = product_save_url()
 
-    mock_post.assert_called_once_with('http://127.0.0.1:5000/products/add-product',json={"product_id": 1, "quantity": 100, "date": "2024-01-01"})
+    mock_post.assert_called_once_with('https://advanced-api-deployment.onrender.com/products/add-product',json={"product_id": 1, "quantity": 100, "date": "2024-01-01"})
     self.assertEqual(response.status_code, 400)
     self.assertEqual(response.json(), {'error': 'Bad Request'})
 
@@ -150,7 +150,7 @@ class TestProductEndpoints(unittest.TestCase):
     
     response = product_find_all_url()
     
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/products/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/products/')
     self.assertEqual(response.status_code, 200)
     self.assertEqual(response.json(), [{'product_id': 1, 'quantity': 100, 'date': '2024-01-01'}])
 
@@ -161,7 +161,7 @@ class TestProductEndpoints(unittest.TestCase):
     
     response = product_find_all_url()
     
-    mock_get.assert_called_once_with('http://127.0.0.1:5000/products/')
+    mock_get.assert_called_once_with('https://advanced-api-deployment.onrender.com/products/')
     self.assertEqual(response.status_code, 500)
     self.assertEqual(response.json(), {'error': 'Internal Server Error'})
 
