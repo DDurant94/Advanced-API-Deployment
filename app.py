@@ -5,7 +5,7 @@ from database import db
 from schema import ma
 from limiter import limiter
 from caching import cache
-from sqlalchemy.orm import Session
+import os
 
 from models.customer import Customer
 from models.customerAccount import CustomerAccount
@@ -25,22 +25,21 @@ from routes.roleBP import role_blueprint
 SWAGGER_URL = '/api/docs'
 API_URL = '/static/swagger.yaml'
 
-#adding the app name
+# adding the app name
 swagger_blueprint = get_swaggerui_blueprint(
-  SWAGGER_URL,
-  API_URL,
-  config={
-    'app_name': "E-Commerce API"
-  }
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "E-Commerce API"
+    }
 )
 
 # creating the app
 def create_app(config_name):
   app = Flask(__name__)
-  
+  app.config.from_object(f'config.{config_name}')
+
   try:
-    app.config.from_object([f'config.{config_name}'])
-    
     db.init_app(app)
     ma.init_app(app)
     cache.init_app(app)
@@ -49,20 +48,22 @@ def create_app(config_name):
   except Exception as e:
     print(f"Error creating app: {e}")
     raise e
-  
+
   return app
-  
+
 app = create_app('DevelopmentConfig')
 
 # endpoints config for the app to be usable (base of all endpoints)
 def blue_print_config(app):
   app.register_blueprint(customer_blueprint, url_prefix='/customers')
-  app.register_blueprint(customer_account_blueprint,url_prefix='/customer-accounts')
-  app.register_blueprint(order_blueprint,url_prefix='/orders')
-  app.register_blueprint(product_blueprint,url_prefix='/products')
-  app.register_blueprint(role_blueprint,url_prefix='/roles')
-  app.register_blueprint(swagger_blueprint,url_prefix=SWAGGER_URL)
-  
+  app.register_blueprint(customer_account_blueprint, url_prefix='/customer-accounts')
+  app.register_blueprint(order_blueprint, url_prefix='/orders')
+  app.register_blueprint(product_blueprint, url_prefix='/products')
+  app.register_blueprint(role_blueprint, url_prefix='/roles')
+  app.register_blueprint(swagger_blueprint, url_prefix=SWAGGER_URL)
+
+blue_print_config(app)
+
 # setting endpoint limits
 def configure_rate_limit():
   limiter.limit("100 per day")(customer_blueprint)
@@ -72,10 +73,10 @@ def configure_rate_limit():
   limiter.limit("100 per day")(role_blueprint)
   limiter.limit("100 per day")(swagger_blueprint)
 
+configure_rate_limit()
+
 if __name__ == '__main__':
-  
-  blue_print_config(app)
-  configure_rate_limit()
-  
   with app.app_context():
     db.create_all()
+
+  app.run()
