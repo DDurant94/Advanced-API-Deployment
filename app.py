@@ -40,6 +40,7 @@ def create_app(config_name):
   
   try:
     app.config.from_object(f'config.{config_name}')
+    
     db.init_app(app)
     ma.init_app(app)
     cache.init_app(app)
