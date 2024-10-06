@@ -5,7 +5,6 @@ from database import db
 from schema import ma
 from limiter import limiter
 from caching import cache
-from config import DevelopmentConfig as DC
 
 from models.customer import Customer
 from models.customerAccount import CustomerAccount
@@ -37,8 +36,8 @@ swagger_blueprint = get_swaggerui_blueprint(
 # creating the app
 def create_app(config_name):
   app = Flask(__name__)
-  app.config['SQLALCHEMY_DATABASE_URI'] = DC.SQLALCHEMY_DATABASE_URI
-  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = DC.SQLALCHEMY_TRACK_MODIFICATIONS
+  app.config.from_object(f'config.{config_name}')
+
   try:
     db.init_app(app)
     ma.init_app(app)
