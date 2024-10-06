@@ -51,6 +51,7 @@ def create_app(config_name):
   
   return app
   
+app = create_app('DevelopmentConfig')
 
 # endpoints config for the app to be usable (base of all endpoints)
 def blue_print_config(app):
@@ -71,7 +72,6 @@ def configure_rate_limit():
   limiter.limit("100 per day")(swagger_blueprint)
 
 if __name__ == '__main__':
-  app = create_app('DevelopmentConfig')
   
   blue_print_config(app)
   configure_rate_limit()
