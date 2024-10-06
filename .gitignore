@@ -1,0 +1,4 @@
+.env
+questions.txt
+__pycache__
+venv

@@ -1,0 +1,187 @@
+Version: 1.0.0 Advanced E-Commerce API
+
+About:
+    In the Advanced E-Commerce API, I have implemented several new features to ensure the secure storage of information, thorough testing of 
+  endpoints, comprehensive documentation, and a modular design. This makes it the most in-depth and well-thought-out RESTful API I have built 
+  to date. These enhancements allow for readability, maintainability, and scalability over time, even in an ever-changing environment of web 
+  security.
+   
+   
+  Secure Storage and Retrieval:
+    -utils folder:
+      To ensure the safe and secure storage of information, werkzeug.security is implemented for password hashing. When a user signs into 
+    their account, werkzeug.security.check_password_hash verifies that the password is correct for the given username. Once both the username 
+    and password are verified, a JWT (JSON Web Token) is generated to create a 256-bit hash token for the user. This token is used for accessing 
+    different endpoints across the application. The token has a default time limit of one day and one hour, which can be adjusted as needed.
+
+      Within the hash, the user’s role is embedded, allowing access to be granted based on the appropriate role. This approach ensures that only 
+    information designated by admins as public can be seen by everyone. As the application grows in complexity, more roles can be created to 
+    allow departments to access role-specific areas.
+
+
+  Testing:
+    -tests folder:
+      For testing various API endpoints, I used unittest and Faker to create mock objects and endpoints. This allowed me to test each endpoint 
+    under various constraints, facilitating the refactoring of code for better performance and maintainability under stress. This ensures my 
+    code is prepared for all situations, whether it’s handling incorrectly entered data or verifying that the code functions as intended.
+
+      I have used Faker, requests, and unittest to achieve this. Faker generates mock data for use with the API, while requests allow me 
+    to interact with the API endpoints to send or retrieve data. Unittest integrates everything, enabling testing without directly 
+    inputting data into the database.
+
+      Such testing should be done before building the application to define the data structure before the API is operational. I have 
+    set up mock data functions to ensure that data entered into services maintains a consistent structure, serving as a control while 
+    working with them. This approach allows each service to handle the same type of data used across all endpoints.
+
+      In conclusion, testing like this is great for validating the performance, security, and reliability of the API and its 
+    structure. It allows a coder like myself to identify areas where my code may be lacking and needing improvement, ensuring a 
+    better-performing API while isolating each part of the code. If you want to see the tests in action hope over to the test folder and 
+    give them a run.
+
+
+  Documentation:
+    -static folder:
+      Documentation of data structures, endpoints, and errors is all handled in the swagger.yaml file located in the static folder. Using 
+    Swagger and YAML (Yet Another Markup Language), documenting each part of the API becomes much easier and allows for interactive documentation. 
+    This gives users a hands-on experience with how information is entered, received, and validated within the API’s code structure.
+
+      Within swagger.yaml, the use of tokens and role verification showcases how security is implemented across the application. To explore the 
+    endpoints of this API, visit this GitHub link and click “Run.” Then, open your browser and go to http://127.0.0.1:5000/api/docs/ to interact 
+    with all the endpoints and models/schemas.
+
+
+  Modularized Design:
+    E-Commerce uses a modular design to allow for scalability, readability, and ease of debugging.
+
+      Controllers:
+          Controllers are where all the data is reviewed using SQLAlchemy to serialize and deserialize data that is given to and received 
+      from the database, ensuring the data submitted is in the correct format. When the information doesn’t meet the requirements, 
+      implemented error handling lets the user know where they went wrong.
+
+      Models:
+            Models lay out each table’s columns, rows, and relationships with other tables to grant access to that information. They also 
+        tell the database what kind of information it is looking for, whether it be a string, integer, list, or dictionary. Additionally, 
+        they can set restrictions on how long or short the data can be for each row, ensuring that the user enters the correct information.
+
+      Schemas:
+          Schemas is a subfolder of Models where the controller checks its data against a schema (model or template) to see if the 
+        information matches the columns for that table. 
+
+      Routes:
+            Routes specify how the URL should look to find the endpoint for the specified operation you want to perform. Each blueprint can 
+        hold several routes, allowing for insertion, selection, deletion, and modification of information within the database.
+
+      Services:
+            Services is where all the 'magic' happens. All the data is validated and meticulously reviewed to ensure that when tables share 
+        information, it is indeed the correct type of information to be associated with one another. For instance, a product's stock is 
+        automatically updated when the day’s production is entered at the end of the day. Data can be parsed and modified within services.  
+
+
+  Other Notable Features:
+
+    Limiter:
+        A limit of 100 requests per day has been implemented on all endpoints. This can be adjusted to reflect the application’s traffic needs. 
+      The limit is set at 100 to prevent the API from being overused and to ensure it operates at its best capacity at all times. This also 
+      helps prevent any single user from abusing and overloading the API with excessive calls.
+
+    Caching:
+        Caching is used to save information in the user’s local memory for 60 seconds by default, helping to prevent the API from being overloaded 
+      by numerous GET requests. This reduces stress on the API and helps prevent crashes. Caching has been implemented on all GET requests, 
+      and the default time can be adjusted as needed. However, the drawback of caching is that if any changes occur within the set time frame, 
+      the cache will not reflect those changes until the endpoint is called again after the timer has expired.
+
+    Pagination:
+        Pagination is used to limit the amount of information the API retrieves at one time, ensuring that only a manageable amount is displayed 
+      on a single page. By default, this is set to 10 items per page. This approach prevents the API from being overloaded and conserves 
+      resources on the user’s end, particularly memory.
+
+
+Installs:
+  Refer to requirements.txt to see all of the installs used. You can also run the command bellow for quick install into your VENV (virtual environment)
+PIP install Command:
+  pip install Flask SQLAlchemy marshmallow flask-marshmallow Flask-SQLAlchemy Flask-Caching mysql-connector-python marshmallow-sqlalchemy circuitbreaker Flask-Limiter flask-cors pyjwt python-dotenv Faker pytest pytest-mock requests flask-swagger flask-swagger-ui psycopg2 psycopg2-binary gunicorn
+
+
+Questions:
+Imagine you are tasked with creating an e-commerce application that empowers both customers and administrators. The goal is to build a 
+user-friendly platform where customers can effortlessly browse products, add them to their shopping carts, and place orders. Simultaneously, 
+administrators should have tools to manage product inventory, track orders, and ensure a seamless shopping experience.
+
+To tackle this challenge, we will leverage the power of Python and two essential libraries: Flask and Flask-SQLAlchemy. Flask is a lightweight 
+web framework that simplifies web application development, while Flask-SQLAlchemy provides a robust toolkit for database interactions. 
+Together, they form the perfect duo to craft our e-commerce solution.
+
+Project Requirements
+💡 Note: 
+We've developed some of this functionality throughout this course. Please feel free to reuse functionality from other assignments 
+& projects to help speed up the process.
+
+Customer and CustomerAccount: 
+  Create the CRUD (Create, Read, Update, Delete) endpoints for managing Customers and their associated CustomerAccounts:
+
+Create Customer: Implement an endpoint to add a new customer to the database.
+
+Read Customer: Develop an endpoint to retrieve customer details based on their unique identifier (ID).
+
+Update Customer: Create an endpoint for updating customer details, allowing modifications to the customer's name, email, and phone number.
+
+Delete Customer: Implement an endpoint to delete a customer from the system based on their ID.
+
+
+Create CustomerAccount: Develop an endpoint to create a new customer account. This should include fields for a unique username and a secure 
+password. The customerAccount have a customer ID with one-to-one relationship
+
+Read CustomerAccount: Implement an endpoint to retrieve customer account details, including the associated customer's information.
+
+Update CustomerAccount: Create an endpoint for updating customer account information, including the username and password.
+
+Delete CustomerAccount: Develop an endpoint to delete a customer account.
+
+
+Product Catalog: Create the CRUD (Create, Read, Update, Delete) endpoints for managing Products:
+
+Create Product: Implement an endpoint to add a new product to the e-commerce database. 
+
+Read Product: Develop an endpoint to retrieve product details based on the product's unique identifier (ID). 
+
+Update Product: Create an endpoint for updating product details, allowing modifications to the product name and price.
+
+Delete Product: Implement an endpoint to delete a product from the system based on its unique ID.
+
+List Products: Develop an endpoint to list all available products in the e-commerce platform. Ensure that the list provides essential 
+product information.
+
+
+Order Processing: Develop the ability to place and retrieve an order.
+
+Place Order: Create an endpoint for customers to place new orders, specifying the products they wish to purchase and providing essential 
+order details. Each order should capture the order date and the associated customer.
+
+Retrieve Order: Implement an endpoint that allows customers to retrieve details of a specific order based on its unique identifier (ID). 
+Provide a clear overview of the order, including the order date and associated products.
+
+Database Integration:
+Utilize Flask-SQLAlchemy to integrate a MySQL database into the application.
+Design and create the necessary Model to represent customers, orders, products, customer management, and any additional features.
+Establish relationships between tables to model the application's core functionality.
+Ensure proper database connections and interactions for data storage and retrieval.
+
+Modularization code:
+The code must be modularized using a layered architecture. We've used these during this module: Controllers, Models, Routes, Services, Utils, 
+Test. We are open to your own interpretation and experimentation so long as it is organized and well thought out. A single file thousands of 
+line long does not count.
+The code must have a configuration file to configure all database connections, cache, etc.
+Performance improvement with cache and limit implementation:
+Use the cache logic only to get requests using the flask-caching library.
+Use flask-limiter to limit request consumption to 100 per day for all endpoints generated.
+
+Implement JWT Security:
+Use the jwt library and implement a token that has a time limit. Additionally, all endpoints except login should require the JWT.
+Customer and CustomerAccount endpoints must have the administrator role to be consumed.
+
+Unit test implementation with unittest:
+Implement 3-5 tests. Use the unittest and mock library to be able to consider multiple scenarios.
+
+Document API with Swagger library:
+Use the Swagger library to be able to generate project documentation
+Generate the swagger.yaml file with the documentation of each of the generated endpoints.
