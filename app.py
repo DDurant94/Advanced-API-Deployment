@@ -53,8 +53,6 @@ def create_app(config_name):
 
   return app
 
-app = create_app('DevelopmentConfig')
-
 # endpoints config for the app to be usable (base of all endpoints)
 def blue_print_config(app):
   app.register_blueprint(customer_blueprint, url_prefix='/customers')
@@ -63,8 +61,6 @@ def blue_print_config(app):
   app.register_blueprint(product_blueprint, url_prefix='/products')
   app.register_blueprint(role_blueprint, url_prefix='/roles')
   app.register_blueprint(swagger_blueprint, url_prefix=SWAGGER_URL)
-
-blue_print_config(app)
 
 # setting endpoint limits
 def configure_rate_limit():
@@ -75,9 +71,14 @@ def configure_rate_limit():
   limiter.limit("100 per day")(role_blueprint)
   limiter.limit("100 per day")(swagger_blueprint)
 
-configure_rate_limit()
+
 
 if __name__ == '__main__':
+  app = create_app('DevelopmentConfig')
+  
+  blue_print_config(app)
+  configure_rate_limit()
+  
   with app.app_context():
     db.create_all()
 
