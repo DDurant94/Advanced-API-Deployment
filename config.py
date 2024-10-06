@@ -2,10 +2,12 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-PASSWORD = os.getenv('PASSWORD')
+DATABASE_URL = os.getenv('DATABASE_URL')
 
-# connecting uri for mysql database
+# connecting uri for postgras database
 class DevelopmentConfig:
-  SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:{PASSWORD}@localhost/advanced_e_commerce_db'
+  SQLALCHEMY_DATABASE_URI = DATABASE_URL
+  SQLALCHEMY_TRACK_MODIFICATIONS = False
   CACHE_TYPE = 'SimpleCache'
-  DEBUG = True
+  
+  

@@ -38,14 +38,19 @@ swagger_blueprint = get_swaggerui_blueprint(
 def create_app(config_name):
   app = Flask(__name__)
   
-  app.config.from_object(f'config.{config_name}')
-  db.init_app(app)
-  ma.init_app(app)
-  cache.init_app(app)
-  limiter.init_app(app)
-  CORS(app)
+  try:
+    app.config.from_object(f'config.{config_name}')
+    db.init_app(app)
+    ma.init_app(app)
+    cache.init_app(app)
+    limiter.init_app(app)
+    CORS(app)
+  except Exception as e:
+    print(f"Error creating app: {e}")
+    raise e
   
   return app
+  
 
 # endpoints config for the app to be usable (base of all endpoints)
 def blue_print_config(app):
