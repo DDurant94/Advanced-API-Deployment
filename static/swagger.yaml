@@ -404,7 +404,7 @@ paths:
         description: "Customer account object that needs to be added"
         required: true
         schema:
-          $ref: "#/definitions/CustomerAccount"
+          $ref: "#/definitions/CustomerAccountCredentials"
       responses:
         201:
           description: "Customer account created"
