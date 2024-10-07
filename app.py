@@ -71,12 +71,10 @@ def configure_rate_limit():
   limiter.limit("100 per day")(swagger_blueprint)
 
 app = create_app('DevelopmentConfig')
+blue_print_config(app)
+configure_rate_limit()
 
-if __name__ == '__main__':
-  
-  blue_print_config(app)
-  configure_rate_limit()
-  
+if __name__ == '__main__': 
   with app.app_context():
     db.create_all()
   app.run()
