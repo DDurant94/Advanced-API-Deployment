@@ -9,6 +9,6 @@ class Product(Base):
   name: Mapped[str]= mapped_column(db.String(255),nullable=False)
   price: Mapped[float] = mapped_column(db.Float,nullable=False)
   quantity: Mapped[int] = mapped_column(db.Integer,nullable=False)
-  description: Mapped[str] = mapped_column(db.Text(65535),nullable=False)
+  description: Mapped[str] = mapped_column(db.Text,nullable=False)
   
   orders: Mapped[List["OrderProducts"]] = db.relationship('OrderProducts', back_populates='product')
