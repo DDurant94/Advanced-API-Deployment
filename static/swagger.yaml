@@ -3,7 +3,7 @@ info:
   title: "E-Commerce API"
   description: "This is an API to manage an E-Commerce application"
   version: "1.0.0"
-host: "127.0.0.1:5000"
+host: "advanced-api-deployment.onrender.com"
 schemes:
   - "http"
 consumes:
@@ -162,9 +162,7 @@ paths:
               value:
                 status: "error"
                 message: "User does not have required role"
-      security:
-        - bearerAuth: []
-        - roleAuth: ['admin']
+
 
   /customers/update/id/{id}:
     put:
@@ -441,9 +439,6 @@ paths:
               value:
                 status: "error"
                 message: "User does not have required role"
-      security:
-        - bearerAuth: []
-        - roleAuth: ['admin']
 
   /customer-accounts/login:
     post:
