@@ -39,8 +39,6 @@ def find_all():
 
 # updating a role from json data sent to the API using endpoint associated
 # admin required
-@token_required
-@role_required('admin')
 def update(id):
   try:
     role_data = role_schema.load(request.json)
