@@ -9,7 +9,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from app import create_app
 from services.customerService import save, find_all
 from models.customer import Customer
-from database import db
 
 def mock_customer_data():
   faker = Faker()
@@ -52,15 +51,8 @@ class TestCustomerEndpoints(unittest.TestCase):
     self.app = create_app('DevelopmentConfig')
     self.app_context = self.app.app_context()
     self.app_context.push()
-    self.client = self.app.test_client()
-    
-    with self.app_context:
-        db.create_all()
 
   def tearDown(self):
-    with self.app_context:
-        db.session.remove()
-        db.drop_all()
     self.app_context.pop()
 
 # Services Tests  
