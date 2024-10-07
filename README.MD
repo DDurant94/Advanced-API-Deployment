@@ -20,15 +20,17 @@
 ### Built With
 
   Platforms:
-    -Render (Cloud Host)
-    -Virtual Studio Code (Code editor)
-    -GitHub (Repository Storage and CI/CD deployment)
-    -Postman (Checking API Endpoints)
+
+    1. Render (Cloud Host)
+    2. Virtual Studio Code (Code editor)
+    3. GitHub (Repository Storage and CI/CD deployment)
+    4. Postman (Checking API Endpoints)
 
   Languages:
-    -Python
-    -SQL (Structured Query Language)
-    -YAML (Yet Another Markup Language)
+  
+    1. Python
+    2. SQL (Structured Query Language)
+    3. YAML (Yet Another Markup Language)
 
 ## About
 
