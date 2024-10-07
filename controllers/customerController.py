@@ -10,7 +10,7 @@ from utils.util import token_required, role_required
 # Controllers validates and serializes information for and from requests sent to the API
 
 # creating a customer from json data sent to the API using endpoint associated
-# admin required
+
 def save():
   try:
     customer_data = customer_schema.load(request.json)

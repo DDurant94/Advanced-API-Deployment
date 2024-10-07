@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: "E-Commerce API"
   description: "This is an API to manage an E-Commerce application"
-  version: "1.0.0"
+  version: "1.0.1"
 host: "advanced-api-deployment.onrender.com"
 schemes:
   - "https"
