@@ -1278,6 +1278,7 @@ definitions:
       - "role"
       - "id"
 
+
   CustomerCredentials:
     type: "object"
     properties:
