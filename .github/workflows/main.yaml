@@ -33,6 +33,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: Set environment variables 
+        env: 
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+        run: | 
+          source venv/bin/activate echo "DATABASE_URL is set"
+
       - name: Print debugging information
         run: |
           source venv/bin/activate
@@ -69,6 +75,12 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+
+      - name: Set environment variables 
+        env: 
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+        run: | 
+          source venv/bin/activate echo "DATABASE_URL is set"
 
       - name: Run tests with pytest
         run: |
