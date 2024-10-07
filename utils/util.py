@@ -18,7 +18,6 @@ def encode_token(user_id, role_names):
     }
     
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-    print(token)
     return token
   
   except Exception as e:

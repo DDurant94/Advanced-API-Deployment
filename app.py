@@ -51,7 +51,6 @@ def create_app(config_name):
   return app
 
 
-
 # endpoints config for the app to be usable (base of all endpoints)
 def blue_print_config(app):
   app.register_blueprint(customer_blueprint, url_prefix='/customers')

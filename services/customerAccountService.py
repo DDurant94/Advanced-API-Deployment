@@ -53,7 +53,6 @@ def login_customer(username,password):
     if check_password_hash(user.password,password):
       role_names = [role.role_name for role in user.roles]
       auth_token = encode_token(user.id,role_names)
-      print(auth_token)
       resp = {
         "status": "success",
         "message": "Successfully logged in",
