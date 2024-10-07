@@ -37,7 +37,6 @@ swagger_blueprint = get_swaggerui_blueprint(
 def create_app(config_name):
   app = Flask(__name__)
   app.config.from_object(f'config.{config_name}')
-
   try:
     db.init_app(app)
     ma.init_app(app)
@@ -78,5 +77,3 @@ if __name__ == '__main__':
   
   with app.app_context():
     db.create_all()
-
-  app.run()
