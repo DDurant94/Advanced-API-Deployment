@@ -1,13 +1,18 @@
-Version: 1.0.0 Advanced E-Commerce API
+Version: 1.0.1 Advanced E-Commerce API
 
 About:
     In the Advanced E-Commerce API, I have implemented several new features to ensure the secure storage of information, thorough testing of 
-  endpoints, comprehensive documentation, and a modular design. This makes it the most in-depth and well-thought-out RESTful API I have built 
-  to date. These enhancements allow for readability, maintainability, and scalability over time, even in an ever-changing environment of web 
-  security.
+  endpoints, comprehensive documentation, and a modular design. This makes it the most in-depth and well-thought-out RESTful API I have built to 
+  date. These enhancements allow for readability, maintainability, and scalability over time, even in an ever-changing environment of web security.
+
+    Deployment of this application was done through Render web services, using a Continuous Integration/Continuous Deployment (CI/CD) layout 
+  documented within the .github/workflow directory under main.yaml. This setup allows for automated testing and deployment of the application 
+  as it scales up in production.
    
    
   Secure Storage and Retrieval:
+    Storage of database information is stored withing Renders Postgre API.  
+
     -utils folder:
       To ensure the safe and secure storage of information, werkzeug.security is implemented for password hashing. When a user signs into 
     their account, werkzeug.security.check_password_hash verifies that the password is correct for the given username. Once both the username 
@@ -17,6 +22,14 @@ About:
       Within the hash, the user’s role is embedded, allowing access to be granted based on the appropriate role. This approach ensures that only 
     information designated by admins as public can be seen by everyone. As the application grows in complexity, more roles can be created to 
     allow departments to access role-specific areas.
+
+
+  .GitHub:
+    Connecting The CI/CD Pipeline.
+
+    Workflow:
+        The main.yaml file contains all the code necessary for building, testing, and deploying the application. It ensures that the virtual 
+      environment is correctly set up and that the code is properly tested before the deployment phase. 
 
 
   Testing:
@@ -46,8 +59,12 @@ About:
     This gives users a hands-on experience with how information is entered, received, and validated within the API’s code structure.
 
       Within swagger.yaml, the use of tokens and role verification showcases how security is implemented across the application. To explore the 
-    endpoints of this API, visit this GitHub link and click “Run.” Then, open your browser and go to http://127.0.0.1:5000/api/docs/ to interact 
-    with all the endpoints and models/schemas.
+    endpoints of this API, open your browser and go to https://advanced-api-deployment.onrender.com/api/docs to interact with all the endpoints 
+    and models/schemas.
+
+      The login endpoint has already been set up with the username string and password string, and it has the role of admin to access all the 
+    endpoints of this API. After logging in, copy the token, click the lock icon, type Bearer followed by a space, then paste the token and click 
+    login. You will now have access to all endpoints.
 
 
   Modularized Design:
@@ -97,91 +114,73 @@ About:
 
 
 Installs:
-  Refer to requirements.txt to see all of the installs used. You can also run the command bellow for quick install into your VENV (virtual environment)
+  Refer to requirements.txt to see all of the installs used. You can also run the command bellow for quick install into your VENV 
+  (virtual environment) with versions used.
 PIP install Command:
   pip install Flask SQLAlchemy marshmallow flask-marshmallow Flask-SQLAlchemy Flask-Caching mysql-connector-python marshmallow-sqlalchemy circuitbreaker Flask-Limiter flask-cors pyjwt python-dotenv Faker pytest pytest-mock requests flask-swagger flask-swagger-ui psycopg2 psycopg2-binary gunicorn
 
 
 Questions:
-Imagine you are tasked with creating an e-commerce application that empowers both customers and administrators. The goal is to build a 
-user-friendly platform where customers can effortlessly browse products, add them to their shopping carts, and place orders. Simultaneously, 
-administrators should have tools to manage product inventory, track orders, and ensure a seamless shopping experience.
+  The e-commerce project, developed in Module 13, requires a streamlined Continuous Integration and Continuous Deployment (CI/CD) pipeline 
+  for optimal performance. This pipeline should automate the process of building, testing, and deploying the application to Render, a cloud 
+  platform. Key components include setting up a robust CI/CD workflow using GitHub Actions, configuring a PostgreSQL database hosted on Render 
+  for the Flask API, and implementing unit tests using unittest and pytest for application reliability. The project will emphasize documentation 
+  and knowledge sharing to ensure efficient collaboration and project management.
 
-To tackle this challenge, we will leverage the power of Python and two essential libraries: Flask and Flask-SQLAlchemy. Flask is a lightweight 
-web framework that simplifies web application development, while Flask-SQLAlchemy provides a robust toolkit for database interactions. 
-Together, they form the perfect duo to craft our e-commerce solution.
+  Project requirements
 
-Project Requirements
-💡 Note: 
-We've developed some of this functionality throughout this course. Please feel free to reuse functionality from other assignments 
-& projects to help speed up the process.
+    Utilize the e-commerce project generated in Module 13:
+      Use the e-commerce project created in Module 13 as the basis for this CI/CD project.
 
-Customer and CustomerAccount: 
-  Create the CRUD (Create, Read, Update, Delete) endpoints for managing Customers and their associated CustomerAccounts:
+    Send the project to the GitHub repository (if haven’t already):
+      Push the e-commerce project to a GitHub repository to facilitate version control and collaboration.
 
-Create Customer: Implement an endpoint to add a new customer to the database.
+    Implement a Continuous Integration (CI) flow of build and test in GitHub Actions:
+      Create a main.yml file within the .github/workflows directory to define the CI workflow.
+      Configure the workflow to automatically trigger code pushes to the main branch.
+      Use GitHub Actions to build the project and run unit tests using unittest and pytest.
+      Ensure that the workflow fails if any tests fail, preventing the deployment of faulty code.
 
-Read Customer: Develop an endpoint to retrieve customer details based on their unique identifier (ID).
+    Deploy a PostgreSQL database on Render and link it with the Flask API:
+      Set up a PostgreSQL database service on Render to host the application's database.
+      Modify the Flask API code to use the psycopg2 library to connect to the Render-hosted PostgreSQL database.
+      Configure the database connection settings in the Flask API to establish a successful connection.
 
-Update Customer: Create an endpoint for updating customer details, allowing modifications to the customer's name, email, and phone number.
+    Implement a Continuous Deployment (CD) flow in GitHub Actions with deployment to Render:
+      Extend the existing GitHub Actions workflow to include a deployment stage.
+      Define deployment jobs to deploy the application to Render.
+      Ensure that the deployment only occurs after the CI tests have passed successfully.
 
-Delete Customer: Implement an endpoint to delete a customer from the system based on their ID.
+    Validate the API's functionality through Swagger-generated documentation:
+      Integrate the Swagger documentation into the Flask API to provide a comprehensive overview of the API's endpoints and functionality.
+      Ensure that the Swagger documentation is up-to-date and reflects the current state of the API.
+      Use the Swagger UI to interact with the API and verify its functionality, including testing various endpoints and verifying responses.
 
+  GitHub Repository:
+    Maintain a clean and interactive README.md file in the GitHub repository, providing clear instructions on how to run the application and 
+    explanations of its features.
 
-Create CustomerAccount: Develop an endpoint to create a new customer account. This should include fields for a unique username and a secure 
-password. The customerAccount have a customer ID with one-to-one relationship
+    Include a link to the GitHub repository in the project documentation.
 
-Read CustomerAccount: Implement an endpoint to retrieve customer account details, including the associated customer's information.
+  Submission
+    Upon completing the project, submit your code and video, including all source code files, and the README.md file in your GitHub repository 
+    to your instructor or designated platform.
 
-Update CustomerAccount: Create an endpoint for updating customer account information, including the username and password.
+  Project Tips
+    Database Connection Configuration:
+      Install the psycopg2-binary and psycopg2 libraries within the requirements.txt file to establish a PostgreSQL database connection.
+      Ensure that libpq-dev is installed to resolve any potential dependency issues.
 
-Delete CustomerAccount: Develop an endpoint to delete a customer account.
+    Pipeline Configuration:
+      Utilize multiple jobs within the GitHub Actions workflow to achieve a better understanding of the CI/CD process.
+      Create a .github/workflows directory and a main.yml file to define the CI/CD workflow.
 
+    Integration Continuous Testing:
+      Implement unit tests for the Flask API using the unittest and pytest libraries.
+      Ensure that the CI workflow includes a test step that runs these unit tests to validate the functionality of the e-commerce project.
 
-Product Catalog: Create the CRUD (Create, Read, Update, Delete) endpoints for managing Products:
-
-Create Product: Implement an endpoint to add a new product to the e-commerce database. 
-
-Read Product: Develop an endpoint to retrieve product details based on the product's unique identifier (ID). 
-
-Update Product: Create an endpoint for updating product details, allowing modifications to the product name and price.
-
-Delete Product: Implement an endpoint to delete a product from the system based on its unique ID.
-
-List Products: Develop an endpoint to list all available products in the e-commerce platform. Ensure that the list provides essential 
-product information.
-
-
-Order Processing: Develop the ability to place and retrieve an order.
-
-Place Order: Create an endpoint for customers to place new orders, specifying the products they wish to purchase and providing essential 
-order details. Each order should capture the order date and the associated customer.
-
-Retrieve Order: Implement an endpoint that allows customers to retrieve details of a specific order based on its unique identifier (ID). 
-Provide a clear overview of the order, including the order date and associated products.
-
-Database Integration:
-Utilize Flask-SQLAlchemy to integrate a MySQL database into the application.
-Design and create the necessary Model to represent customers, orders, products, customer management, and any additional features.
-Establish relationships between tables to model the application's core functionality.
-Ensure proper database connections and interactions for data storage and retrieval.
-
-Modularization code:
-The code must be modularized using a layered architecture. We've used these during this module: Controllers, Models, Routes, Services, Utils, 
-Test. We are open to your own interpretation and experimentation so long as it is organized and well thought out. A single file thousands of 
-line long does not count.
-The code must have a configuration file to configure all database connections, cache, etc.
-Performance improvement with cache and limit implementation:
-Use the cache logic only to get requests using the flask-caching library.
-Use flask-limiter to limit request consumption to 100 per day for all endpoints generated.
-
-Implement JWT Security:
-Use the jwt library and implement a token that has a time limit. Additionally, all endpoints except login should require the JWT.
-Customer and CustomerAccount endpoints must have the administrator role to be consumed.
-
-Unit test implementation with unittest:
-Implement 3-5 tests. Use the unittest and mock library to be able to consider multiple scenarios.
-
-Document API with Swagger library:
-Use the Swagger library to be able to generate project documentation
-Generate the swagger.yaml file with the documentation of each of the generated endpoints.
+    Deploy Databases in Render:
+      Leverage Render's built-in PostgreSQL database service to host the application's database.
+      Configure the database connection settings in the Flask API to connect to the Render-hosted PostgreSQL database.
+      Install Gunicorn for Production Deployment
+      Install the gunicorn library within the requirements.txt file to facilitate the deployment of the Flask API to Render.
