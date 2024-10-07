@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 
-load_dotenv(override=True)
+load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 # connecting uri for postgras database
